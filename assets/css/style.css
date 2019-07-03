@@ -1,0 +1,12 @@
+body{
+    width: 100%;
+    height: 100%;
+    background-color: #feb236;
+}
+.container{
+    width: 50%;
+    padding-top: 50px;
+}
+.borderless td, .borderless th {
+    border: none;
+}
