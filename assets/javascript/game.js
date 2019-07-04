@@ -4,10 +4,32 @@ var word = [];
 var guessedWord = [];
 
 var flag = false;
+var iamWinner = false;
+var gameStarted = false;
 
 var winner = 0;
 var remainingGuesses = 12;
 var alreadyGuessedLetters = [];
+
+
+
+function sound(src) {
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+    this.play = function(){
+      this.sound.play();
+    }
+    this.stop = function(){
+      this.sound.pause();
+    }
+  }
+
+
+
 
 
 function whenKeypressed() {
@@ -27,46 +49,97 @@ function whenKeypressed() {
     document.getElementById("alreadyguessed").innerHTML = alreadyGuessedLetters;
     document.getElementById("alreadyguessed").style.color = "blue";
 
-    if (!flag) {
-        generateRandomWords();
-        flag = true;
-    }
+   
 }
+
+
 
 document.onkeypress = function (event) {
 
+    playAudio();
     var c = (event.key).toUpperCase();
     // Update the interface for the user
-    whenKeypressed();
+
+    if (!flag) {
+        whenKeypressed();
+        generateRandomWords();
+        flag = true;
+    }
+
+    if(gameStarted === false){
+        gameStarted = true
+        return
+    }
 
     for (let index = 0; index <= alreadyGuessedLetters.length; index++) {
-        if (!alreadyGuessedLetters.includes(c) && checkInputChar(event) && remainingGuesses > 0 && word !== guessedWord) {
+       
+
+        if (!alreadyGuessedLetters.includes(c) && checkInputChar(event) && word !== guessedWord) {
             alreadyGuessedLetters.push(c)
-            checkForCurrentWord(c);
             document.getElementById("guesses").innerHTML = --remainingGuesses;
             document.getElementById("alreadyguessed").innerHTML = alreadyGuessedLetters
+            checkForCurrentWord(c);
 
-        } else if(remainingGuesses <= 0) alert("You lose")
+        }
+        
+        
 
     }
 
+    if(remainingGuesses<=0){
+
+        setTimeout(alert("You lost"), 90000)
+        // alert ("You lose")
+        remainingGuesses = 12;
+        alreadyGuessedLetters = [];
+        word = [];
+        guessedWord = [];
+        
+        document.getElementById("guesses").innerHTML = remainingGuesses;
+
+        document.getElementById("alreadyguessed").innerHTML = alreadyGuessedLetters;
+        document.getElementById("currentWord").innerHTML = guessedWord;     
+        flag = false;
+
+        return
+    }
+
+    
+
 }
 
-
+// checks if the current character is maching
 function checkForCurrentWord(c) {
     for (let index = 0; index < word.length; index++) {
-        // console.log(word.charAt(index)+" CCCC: "+c)
-        // console.log(word)
+        
         if (c == word[index]) {
             guessedWord[index] = c;
-            document.getElementById("currentWord").innerHTML = guessedWord;
-
+            document.getElementById("currentWord").innerHTML = guessedWord;     
+            
             if(!guessedWord.includes("-")){
-                alert("You won")
-                winner++;
+                if(iamWinner==false) {
+                    
+                    alert("You won")
+                    iamWinner=true;
+                    remainingGuesses = 12;
+                    alreadyGuessedLetters = [];
+                    word = [];
+                    guessedWord = [];
+                    
+                    document.getElementById("guesses").innerHTML = remainingGuesses;
+
+                    document.getElementById("alreadyguessed").innerHTML = alreadyGuessedLetters;
+                    document.getElementById("currentWord").innerHTML = guessedWord;     
+                    flag = false;
+
+                }
+                // iamWinner = true;
+                document.getElementById("userwins").innerHTML = ++winner;
                 return;
             }
         }
+
+       
         
         console.log("::::::"+guessedWord[index])
 
@@ -78,14 +151,14 @@ function checkForCurrentWord(c) {
 
 function generateRandomWords() {
     var temp = wordsList[Math.floor(Math.random() * wordsList.length)];
-    word = temp.split('')
-    // document.getElementById("currentWord").innerHTML = word;
+    word = temp.split('');
 
     for (let index = 0; index < word.length; index++) {
         guessedWord.push("-")
     }
     document.getElementById("currentWord").innerHTML += guessedWord;
 
+    iamWinner = false;
 }
 
 function checkInputChar(event) {
@@ -97,4 +170,5 @@ function checkInputChar(event) {
         return false;
     }
 }
+
 
