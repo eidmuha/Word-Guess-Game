@@ -17,9 +17,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
-    <script src="https://code.createjs.com/1.0.0/soundjs.min.js"></script>
+        
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
     <!-- Source to External Javascript file -->
     <script src="assets/javascript/game.js"></script>
@@ -31,7 +31,7 @@
     <div class="container" onkeypress="playAudio()">
         <h2>Word Guess Game</h2>
 
-        <table class="table table-dark borderless playSound" onclick="playSound();" >
+        <table class="table table-dark borderless playSound" >
             <thead>
                 <tr>
                     <th>Press Any Key to Get Started <span id="started"></span></th>
@@ -57,11 +57,7 @@
        
     </div>
 
-    <audio id="myAudio" >
-        <source src="assets/images/Fantasy_Game_Background_Looping.mp3" type="audio/ogg">
-        <!-- <source src="horse.mp3" type="audio/mpeg"> -->
-        Your browser does not support the audio element.
-      </audio>
+ 
 
 </body>
 

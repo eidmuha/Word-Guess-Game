@@ -13,20 +13,21 @@ var alreadyGuessedLetters = [];
 
 
 
-function sound(src) {
-    this.sound = document.createElement("audio");
-    this.sound.src = src;
-    this.sound.setAttribute("preload", "auto");
-    this.sound.setAttribute("controls", "none");
-    this.sound.style.display = "none";
-    document.body.appendChild(this.sound);
-    this.play = function(){
-      this.sound.play();
-    }
-    this.stop = function(){
-      this.sound.pause();
-    }
-  }
+
+// function sound(src) {
+//     this.sound = document.createElement("audio");
+//     this.sound.src = src;
+//     this.sound.setAttribute("preload", "auto");
+//     this.sound.setAttribute("controls", "none");
+//     this.sound.style.display = "none";
+//     document.body.appendChild(this.sound);
+//     this.play = function(){
+//       this.sound.play();
+//     }
+//     this.stop = function(){
+//       this.sound.pause();
+//     }
+//   }
 
 
 
@@ -52,11 +53,16 @@ function whenKeypressed() {
    
 }
 
-
+function playAudio(rsc){
+    var audio = new Audio(rsc);
+    audio.play();
+}
 
 document.onkeypress = function (event) {
+    playAudio('assets/javascript/click.mp3');
+    
 
-    playAudio();
+    // playAudio();
     var c = (event.key).toUpperCase();
     // Update the interface for the user
 
