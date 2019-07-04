@@ -94,12 +94,16 @@ document.onkeypress = function (event) {
 
     if(remainingGuesses<=0){
 
-        setTimeout(alert("You lost"), 90000)
+        setTimeout(myAlert(), 90000)
+        function myAlert(){
+            alert ("You lost")
+        }
         // alert ("You lose")
         remainingGuesses = 12;
         alreadyGuessedLetters = [];
         word = [];
         guessedWord = [];
+        winner = 0
         
         document.getElementById("guesses").innerHTML = remainingGuesses;
 
@@ -111,7 +115,6 @@ document.onkeypress = function (event) {
     }
 
     
-
 }
 
 // checks if the current character is maching
@@ -125,7 +128,7 @@ function checkForCurrentWord(c) {
             if(!guessedWord.includes("-")){
                 if(iamWinner==false) {
                     
-                    alert("You won")
+                    toggleHidden()
                     iamWinner=true;
                     remainingGuesses = 12;
                     alreadyGuessedLetters = [];
@@ -178,3 +181,17 @@ function checkInputChar(event) {
 }
 
 
+
+
+  function toggleHidden() {
+    var attr = document.getElementById("exampleModalCenter").attributes;
+    
+    if (attr['aria-hidden'].value == "true") {
+      document.getElementById("exampleModalCenter").setAttribute("aria-hidden", "false");
+    } else {
+      document.getElementById("exampleModalCenter").setAttribute("aria-hidden", "true");
+    }
+    
+    // Show aria-hidden value toggle. Codepen doesn't update HTML pane.
+    document.getElementById('exampleModalCenter').innerHTML = attr['aria-hidden'].value;
+  }
