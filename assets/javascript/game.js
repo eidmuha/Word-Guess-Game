@@ -12,30 +12,9 @@ var remainingGuesses = 12;
 var alreadyGuessedLetters = [];
 
 
-
-
-// function sound(src) {
-//     this.sound = document.createElement("audio");
-//     this.sound.src = src;
-//     this.sound.setAttribute("preload", "auto");
-//     this.sound.setAttribute("controls", "none");
-//     this.sound.style.display = "none";
-//     document.body.appendChild(this.sound);
-//     this.play = function(){
-//       this.sound.play();
-//     }
-//     this.stop = function(){
-//       this.sound.pause();
-//     }
-//   }
-
-
-
-
-
 function whenKeypressed() {
 
-    document.getElementById("started").innerHTML = ": Game Started!";
+    document.getElementById("started").innerHTML = ": Game Started! ";
     document.getElementById("started").style.color = "red";
 
     document.getElementById("userwins").innerHTML = winner;
@@ -50,21 +29,25 @@ function whenKeypressed() {
     document.getElementById("alreadyguessed").innerHTML = alreadyGuessedLetters;
     document.getElementById("alreadyguessed").style.color = "blue";
 
-   
+
 }
 
-function playAudio(rsc){
+function playAudio(rsc) {
     var audio = new Audio(rsc);
     audio.play();
 }
 
-document.onkeypress = function (event) {
-    playAudio('assets/javascript/click.mp3');
-    
+document.onkeyup = function (event) {
+    if (event.keyCode == 27) {
+        window.location.reload(); 
+    }
+}
 
-    // playAudio();
+document.onkeypress = function (event) {
+
+    playAudio('assets/javascript/click.mp3');
+
     var c = (event.key).toUpperCase();
-    // Update the interface for the user
 
     if (!flag) {
         whenKeypressed();
@@ -72,13 +55,12 @@ document.onkeypress = function (event) {
         flag = true;
     }
 
-    if(gameStarted === false){
+    if (gameStarted === false) {
         gameStarted = true
         return
     }
 
     for (let index = 0; index <= alreadyGuessedLetters.length; index++) {
-       
 
         if (!alreadyGuessedLetters.includes(c) && checkInputChar(event) && word !== guessedWord) {
             alreadyGuessedLetters.push(c)
@@ -87,75 +69,44 @@ document.onkeypress = function (event) {
             checkForCurrentWord(c);
 
         }
-        
-        
-
     }
 
-    if(remainingGuesses<=0){
+    if (remainingGuesses <= 0) {
 
         setTimeout(myAlert(), 90000)
-        function myAlert(){
-            alert ("You lost")
+        function myAlert() {
+            alert("You lost")
         }
-        // alert ("You lose")
-        remainingGuesses = 12;
-        alreadyGuessedLetters = [];
-        word = [];
-        guessedWord = [];
         winner = 0
-        
-        document.getElementById("guesses").innerHTML = remainingGuesses;
-
-        document.getElementById("alreadyguessed").innerHTML = alreadyGuessedLetters;
-        document.getElementById("currentWord").innerHTML = guessedWord;     
         flag = false;
+
+        clearFunction()
 
         return
     }
-
-    
 }
 
 // checks if the current character is maching
 function checkForCurrentWord(c) {
     for (let index = 0; index < word.length; index++) {
-        
+
         if (c == word[index]) {
             guessedWord[index] = c;
-            document.getElementById("currentWord").innerHTML = guessedWord;     
-            
-            if(!guessedWord.includes("-")){
-                if(iamWinner==false) {
-                    
-                    toggleHidden()
-                    iamWinner=true;
-                    remainingGuesses = 12;
-                    alreadyGuessedLetters = [];
-                    word = [];
-                    guessedWord = [];
-                    
-                    document.getElementById("guesses").innerHTML = remainingGuesses;
+            document.getElementById("currentWord").innerHTML = guessedWord;
 
-                    document.getElementById("alreadyguessed").innerHTML = alreadyGuessedLetters;
-                    document.getElementById("currentWord").innerHTML = guessedWord;     
+            if (!guessedWord.includes("-")) {
+                if (iamWinner == false) {
+                    $('#exampleModalCenter').modal('show');
+                    //toggleHidden()
+                    clearFunction()
+                    iamWinner = true;
                     flag = false;
-
                 }
-                // iamWinner = true;
                 document.getElementById("userwins").innerHTML = ++winner;
                 return;
             }
         }
-
-       
-        
-        console.log("::::::"+guessedWord[index])
-
     }
-
-    console.log("kalsdj:::"+guessedWord)
-    
 }
 
 function generateRandomWords() {
@@ -175,23 +126,25 @@ function checkInputChar(event) {
     var checkChar = /^[a-zA-Z]+$/.test(event.key);
     if (checkChar && event.keyCode !== 13) {
         return true;
+    } else if (event.keyCode === 27) {
+        event.preventDefault();
+
     } else {
         return false;
+
     }
 }
 
+function clearFunction() {
 
+    remainingGuesses = 12;
+    alreadyGuessedLetters = [];
+    word = [];
+    guessedWord = [];
 
+    document.getElementById("guesses").innerHTML = remainingGuesses;
+    document.getElementById("alreadyguessed").innerHTML = alreadyGuessedLetters;
+    document.getElementById("currentWord").innerHTML = guessedWord;
 
-  function toggleHidden() {
-    var attr = document.getElementById("exampleModalCenter").attributes;
-    
-    if (attr['aria-hidden'].value == "true") {
-      document.getElementById("exampleModalCenter").setAttribute("aria-hidden", "false");
-    } else {
-      document.getElementById("exampleModalCenter").setAttribute("aria-hidden", "true");
-    }
-    
-    // Show aria-hidden value toggle. Codepen doesn't update HTML pane.
-    document.getElementById('exampleModalCenter').innerHTML = attr['aria-hidden'].value;
-  }
+    return
+}

@@ -10,3 +10,17 @@ body{
 .borderless td, .borderless th {
     border: none;
 }
+#winGif{
+    width: 90%;
+}
+.modal-body{
+    background-image: url("https://media.giphy.com/media/2gtoSIzdrSMFO/giphy.gif");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 300px;
+}
+
+.modal-footer{
+    padding: 5px;
+}
