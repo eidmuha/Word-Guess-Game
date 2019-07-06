@@ -96,6 +96,7 @@ function checkForCurrentWord(c) {
 
             if (!guessedWord.includes("-")) {
                 if (iamWinner == false) {
+                     guessedWord.forEach(guessFunction) ;
                     $('#exampleModalCenter').modal('show');
                     //toggleHidden()
                     clearFunction()
@@ -107,6 +108,10 @@ function checkForCurrentWord(c) {
             }
         }
     }
+}
+
+function guessFunction(item, index) {
+    document.getElementById("picFooter").innerHTML+=item;
 }
 
 function generateRandomWords() {
