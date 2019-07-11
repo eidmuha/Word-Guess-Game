@@ -29,41 +29,50 @@
 </head>
 
 <body>
-  <div class="container">
-    <div class="alert alert-info" role="alert">
+  <div class="container p-1">
+
+    <!-- The top row for heading -->
+    <div class="jumbotron text-center">
+      <!-- <div class="container alert alert-info" role="alert"> -->
+
+      <h1>Word Guess Game</h1>
 
       <h6>Press Any Key to Get Started <span id="started"> </span>, Esc to Reset</h6>
 
+      <!-- </div> -->
+    </div>
+  </div>
+  <!-- Maind body for game details -->
+  <div class="container playSound border bg-secondary text-white p-5">
+    <div class="row border p-1 bg-warning">
+      <div class="col-sm-6">
+        Wins: <span id="userwins"></span>
+      </div>
+      <div class="col-sm-6">
+        Current Word: <span id="currentWord"></span>
+      </div>
     </div>
 
-    <table class="table table-dark borderless playSound">
-      <tbody>
-        <tr>
-          <td>Wins: <span id="userwins"></span></td>
-        </tr>
-        <tr>
-          <td>
-            <hr>
-          </td>
-        </tr>
-        <tr>
-          <td>Current Word: <span id="currentWord"></span></td>
-        </tr>
-        <tr>
-          <td>
-            <hr>
-          </td>
-        </tr>
-        <tr>
-          <td>Number of Guesses Remaining: <span id="guesses"></span> </td>
-        </tr>
-        <tr>
-          <td>Letters Already Guessed: <span id="alreadyguessed"></span></td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="row border text-dark p-1 bg-light">
+      <div class="col-sm-6">
+        Number of Guesses Remaining: <br>
+        <span id="guesses">...</span>
+      </div>
+      <div class="col-sm-6">
+        Letters Already Guessed:<br> 
+        <span id="alreadyguessed">...</span>
+      </div>
+    </div>
+
   </div>
 
+  <!-- footer -->
+  <footer class="container-fluid text-center">
+    <p>Onli</p>
+
+  </footer>
+
+  <!-- Modal window -->
   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
